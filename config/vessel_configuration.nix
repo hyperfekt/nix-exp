@@ -5,7 +5,8 @@
     [ ./hardware-configuration.nix # Include the results of the hardware scan.
       ./osprobe.nix # Scan system for installed OS and add them to GRUB
       ./bcachefs-support.nix
+      ./source-based.nix
     ];
-
-  boot.loader.grub.device = "/dev/sda";
+  
+    networking.networkmanager.enable = true;
 }
