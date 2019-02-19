@@ -4,12 +4,12 @@ let
   unstable = import <nixos-unstable/nixpkgs> {};
   fetchimport = args: ((import <nixos/nixpkgs> {config={};}).fetchurl args).outPath;
   kernel = unstable.linux_testing_bcachefs.override { argsOverride = {
-    version = "4.20.2019.02.15";
+    version = "4.20.2019.02.16";
     modDirVersion = "4.20.0";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs.git";
-      rev = "4d3f874ffb5df28021e148c5238ed16cf5a69d36";
-      sha256 = "0k0s5sclm4kny7l6csq0izfiaq5iia7z5n88skdhlan514gd2pzq";
+      rev = "2252e4b79f8f4693950e3dd446898cd5fc30eeab";
+      sha256 = "0k6bn8aq7mqw0l2393yvspw5bs0ddkqai2bk64xa4b26zl6csbh1";
     };
   }; };
   kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);  
@@ -46,4 +46,11 @@ in
     boot.zfs.enableUnstable = true;
     boot.supportedFilesystems = [ "bcachefs" ];
     security.pam.defaults = "session required pam_keyinit.so force revoke";
+    boot.kernelPatches = [ {
+      name = "bcachefs-acl";
+      patch = null;
+      extraConfig = ''
+        BCACHEFS_POSIX_ACL y
+      '';
+    } ];
   }
