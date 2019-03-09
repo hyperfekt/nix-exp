@@ -7,5 +7,6 @@
         <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
         ./config/bcachefs-support.nix
         ./config/git.nix
+        ./config/layout_de.nix
     ];
 }
