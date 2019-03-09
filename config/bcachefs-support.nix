@@ -8,8 +8,8 @@ let
     modDirVersion = "4.20.0";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs.git";
-      rev = "97d1478c44d97c72a226f659d9c981954716166f";
-      sha256 = "17dsxgany3dij8y1qd4ykjx20vkfahrq8ndrxb78w2xz7csp403v";
+      rev = "ca1a2ff489de98e3adc2a49c49e4b26a2f7fd6d3";
+      sha256 = "13b06m17n110dpxrbvsq538i0isi2ma02npczh1si1ry3jixi9m8";
     };
   }; };
   kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);  
@@ -17,8 +17,8 @@ let
     name = "${oldAttrs.pname}-${version}";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-      rev = "70bb5ab7a863ccff57ceb2a195d7cfa0fdf39218";
-      sha256 = "1scbf4vamyi9krqnfbx63q45z2p39f3dlp1p6nxvbdipvr0ahc0c";
+      rev = "ed0993c1e2ed8c4e75f34a31a46e1b1b6b89b6aa";
+      sha256 = "0h0ba9mlzqvljxsy7dkbhv52r4gdaxrgg4781zl88fn8ysw6ra4a";
     };
     version = "2019-03-02";
   });
