@@ -4,12 +4,12 @@ let
   unstable = import <nixos-unstable/nixpkgs> {};
   fetchimport = args: ((import <nixos/nixpkgs> {config={};}).fetchurl args).outPath;
   kernel = unstable.linux_testing_bcachefs.override { argsOverride = {
-    version = "4.20.2019.03.04";
+    version = "4.20.2019.03.09";
     modDirVersion = "4.20.0";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs.git";
-      rev = "ca1a2ff489de98e3adc2a49c49e4b26a2f7fd6d3";
-      sha256 = "13b06m17n110dpxrbvsq538i0isi2ma02npczh1si1ry3jixi9m8";
+      rev = "00c04f8485db33178b98f67d7c106e3b49fb5b67";
+      sha256 = "0mydj5hwslrj4xz5zlhb98ywq3is4ayw55qvcnshz5g9jh0ii2jg";
     };
     features.debug = true;
   }; };
@@ -21,7 +21,7 @@ let
       rev = "ed0993c1e2ed8c4e75f34a31a46e1b1b6b89b6aa";
       sha256 = "0h0ba9mlzqvljxsy7dkbhv52r4gdaxrgg4781zl88fn8ysw6ra4a";
     };
-    version = "2019-03-02";
+    version = "2019-03-08";
   });
 in
   {
