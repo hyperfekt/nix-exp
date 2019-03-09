@@ -11,6 +11,7 @@ let
       rev = "ca1a2ff489de98e3adc2a49c49e4b26a2f7fd6d3";
       sha256 = "13b06m17n110dpxrbvsq538i0isi2ma02npczh1si1ry3jixi9m8";
     };
+    features.debug = true;
   }; };
   kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);  
   tools = unstable.bcachefs-tools.overrideAttrs (oldAttrs: rec {
