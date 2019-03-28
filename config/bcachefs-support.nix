@@ -47,11 +47,20 @@ in
     boot.zfs.enableUnstable = true;
     boot.supportedFilesystems = [ "bcachefs" ];
     security.pam.defaults = "session required pam_keyinit.so force revoke";
-    boot.kernelPatches = [ {
-      name = "bcachefs-acl";
-      patch = null;
-      extraConfig = ''
-        BCACHEFS_POSIX_ACL y
-      '';
-    } ];
+    boot.kernelPatches = [
+      {
+        name = "bcachefs-acl";
+        patch = null;
+        extraConfig = ''
+          BCACHEFS_POSIX_ACL y
+        '';
+      }
+      {
+        name = "bcachefs-debug";
+        patch = null;
+        extraConfig = ''
+          BCACHEFS_DEBUG y
+        '';
+      }
+    ];
   }
