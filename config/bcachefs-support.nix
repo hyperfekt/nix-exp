@@ -4,30 +4,30 @@ let
   unstable = import <nixos-unstable/nixpkgs> {};
   fetchimport = args: ((import <nixos/nixpkgs> {config={};}).fetchurl args).outPath;
   kernel = unstable.linux_testing_bcachefs.override { argsOverride = {
-    version = "4.20.2019.03.29";
-    modDirVersion = "4.20.0";
+    modDirVersion = "5.0.0";
+    version = "5.0.2019.04.06";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs.git";
-      rev = "107f74d3ce6cf2aa685c8b336d57fc469801e4d3";
-      sha256 = "0canqcw14r0mynw35s64wqbnfn53i668dllldnx61hjnv6ph7svv";
+      rev = "1f34297797b3283a173679b440f3d00316d1486a";
+      sha256 = "1pbsbvhilcq81f2lc65735iscpax9s99nk5331fi1iapxcf8afiz";
     };
-    features.debug = true;
   }; };
-  kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);  
+  kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);
   tools = unstable.bcachefs-tools.overrideAttrs (oldAttrs: rec {
     name = "${oldAttrs.pname}-${version}";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-      rev = "be02db130bf75c28e402d890f4d994f3608707ff";
-      sha256 = "08k2jpr1kp8jb02zd3a3fygd982fzkpcgjkpmrxyxwgzzizs97m1";
+      rev = "3a59ff72a0b9bf3ee4cea7a886616edf5ab4f331";
+      sha256 = "0rgbl56lhj4jnavf8f2nd2y3sfgk15q4zdcdlvvr7r0qi0ph8x78";
     };
-    version = "2019-03-29";
+    version = "2019-04-06";
   });
 in
   {
     disabledModules = [
       "tasks/filesystems/bcachefs.nix"
       "security/pam.nix"
+      "tasks/filesystems/zfs.nix" # see zfsonlinux/zfs#825
     ];
     imports = [
       (fetchimport {
