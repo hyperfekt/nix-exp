@@ -4,12 +4,12 @@ let
   unstable = import <nixos-unstable/nixpkgs> {};
   fetchimport = args: ((import <nixos/nixpkgs> {config={};}).fetchurl args).outPath;
   kernel = unstable.linux_testing_bcachefs.override { argsOverride = {
-    modDirVersion = "5.0.0";
-    version = "5.0.2019.04.06";
+    modDirVersion = "5.1.0";
+    version = "5.1.2019.09.20";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs.git";
-      rev = "1f34297797b3283a173679b440f3d00316d1486a";
-      sha256 = "1pbsbvhilcq81f2lc65735iscpax9s99nk5331fi1iapxcf8afiz";
+      rev = "dd444a83ea042ecfbeadb90e4eb9dedf441d02a7";
+      sha256 = "16w8p3rwv7283f08h59wg5q1sqmr4nrv2wnxg1c83lihb0v1x2as";
     };
   }; };
   kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor kernel);
@@ -17,10 +17,10 @@ let
     name = "${oldAttrs.pname}-${version}";
     src = pkgs.fetchgit {
       url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-      rev = "3a59ff72a0b9bf3ee4cea7a886616edf5ab4f331";
-      sha256 = "0rgbl56lhj4jnavf8f2nd2y3sfgk15q4zdcdlvvr7r0qi0ph8x78";
+      rev = "ceee9244dedcca3df57b76fafb772207cdfbd6ee";
+      sha256 = "1c52h01fsj7p2b2iv6y4jgczgdygxlgnz7dq81y20121ijbhyamd";
     };
-    version = "2019-04-06";
+    version = "2019-08-29";
   });
 in
   {
