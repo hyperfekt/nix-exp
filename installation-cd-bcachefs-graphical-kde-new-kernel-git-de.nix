@@ -8,5 +8,6 @@
         ./config/bcachefs-support.nix
         ./config/git.nix
         ./config/layout_de.nix
+        ./config/chroot_nix_fix.nix
     ];
 }
