@@ -3,6 +3,8 @@ let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
 in
 {
+  disabledModules = [ "tasks/filesystems/zfs.nix" ];
+
   options.security.pam.services = with lib; mkOption {
     type = types.loaOf (types.submodule {
       config.text = mkDefault (mkAfter "session required pam_keyinit.so force revoke");
@@ -13,17 +15,19 @@ in
     nixpkgs.overlays = [ (
       self: super: {
         linux_testing_bcachefs = super.linux_testing_bcachefs.override { argsOverride = {
-          modDirVersion = "5.1.0";
-          version = "5.1.2019.09.20";
-          src = pkgs.fetchgit {
-            url = "https://evilpiepirate.org/git/bcachefs.git";
-            rev = "dd444a83ea042ecfbeadb90e4eb9dedf441d02a7";
-            sha256 = "16w8p3rwv7283f08h59wg5q1sqmr4nrv2wnxg1c83lihb0v1x2as";
+          modDirVersion = "5.2.0";
+          version = "5.2.2019.09.24";
+          src = pkgs.fetchFromGitHub {
+            owner = "koverstreet";
+            repo = "bcachefs";
+            rev = "5a3a4087af27aa10da5f23cb174a439946153584";
+            sha256 = "1yn40n2iyflbfv1z8l86nixv8wlybg7abz49nq5k6hmf7r9z56mk";
           };
         }; };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          src = pkgs.fetchgit {
-            url = "https://evilpiepirate.org/git/bcachefs-tools.git";
+          src = pkgs.fetchFromGitHub {
+            owner = "koverstreet";
+            repo = "bcachefs-tools";
             rev = "ceee9244dedcca3df57b76fafb772207cdfbd6ee";
             sha256 = "1c52h01fsj7p2b2iv6y4jgczgdygxlgnz7dq81y20121ijbhyamd";
           };
