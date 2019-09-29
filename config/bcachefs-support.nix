@@ -16,22 +16,22 @@ in
       self: super: {
         linux_testing_bcachefs = super.linux_testing_bcachefs.override { argsOverride = {
           modDirVersion = "5.2.0";
-          version = "5.2.2019.09.24";
+          version = "5.2.2019.09.26";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs";
-            rev = "5a3a4087af27aa10da5f23cb174a439946153584";
-            sha256 = "1yn40n2iyflbfv1z8l86nixv8wlybg7abz49nq5k6hmf7r9z56mk";
+            rev = "7ee280070625b0cf2528ebc461371976efa39c51";
+            sha256 = "0g29d01qfdxgfv56rhqn71s93f8iqbsyvmak93b29dmb8ym2b3v8";
           };
         }; };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "ceee9244dedcca3df57b76fafb772207cdfbd6ee";
-            sha256 = "1c52h01fsj7p2b2iv6y4jgczgdygxlgnz7dq81y20121ijbhyamd";
+            rev = "db39aa3e1b528db3b9d731c3b054f27411e1e1a9";
+            sha256 = "19x7n51yr30dd9rrvji3xk3rij5xd8b86qiym9alpkbbyrz7h956";
           };
-          version = "2019-08-29";
+          version = "2019-09-25";
         });
       }
     ) ];
