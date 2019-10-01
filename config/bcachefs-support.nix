@@ -20,18 +20,18 @@ in
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs";
-            rev = "2f6aaca34bb7fadeb026fcb7706b334f7259806a";
-            sha256 = "0pbl9arkpkmh4pm0bk767w0k6f378wxh1n7ymj4zf01ybkz4jn9w";
+            rev = "af3ebe3848a5ad5e8eaaaef404d983f304c791df";
+            sha256 = "0hm0rg2yfy1p75l9ppzmldqi6li1sdbcy570gj71i3xz9bis9msf";
           };
         }; };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
+          version = "2019-10-01";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "db39aa3e1b528db3b9d731c3b054f27411e1e1a9";
-            sha256 = "19x7n51yr30dd9rrvji3xk3rij5xd8b86qiym9alpkbbyrz7h956";
+            rev = "98b8f8d0c0cde6e5dd661fa5abad66aec6130cbf";
+            sha256 = "1aay36yw52a3qf3hpmxwpbsvsz5zzvr8dp3vfz80babl9lr3b484";
           };
-          version = "2019-09-25";
         });
       }
     ) ];
