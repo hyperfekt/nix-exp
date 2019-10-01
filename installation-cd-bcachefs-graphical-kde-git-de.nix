@@ -3,7 +3,7 @@
 {config, pkgs, ...}:
 {
     imports = [
-        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-graphical-kde-new-kernel.nix>
+        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-graphical-kde.nix>
         <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
         ./config/bcachefs-support.nix
         ./config/git.nix
