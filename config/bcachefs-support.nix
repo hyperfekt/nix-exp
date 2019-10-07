@@ -16,12 +16,12 @@ in
       self: super: {
         linux_testing_bcachefs = super.linux_testing_bcachefs.override { argsOverride = {
           modDirVersion = "5.2.0";
-          version = "5.2.2019.10.05";
+          version = "5.2.2019.10.07";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs";
-            rev = "ce9c3373f2936da244dc80e945e2dc944fd23fec";
-            sha256 = "1xyjy6lx6rcdwl55lwz1lpv0f4h11wf8lcap42kwdxwh44vj7mph";
+            rev = "b83dba0d3fde8d424a274a0936d9c436d770b3aa";
+            sha256 = "0vgyf0cpdcs2ldh6k060hc4x1hbxrv5r2iz4lgg3ak2w9k2a8bpk";
           };
         }; };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
