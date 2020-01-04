@@ -14,28 +14,42 @@ in
   config = {
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = super.linux_testing_bcachefs.override { argsOverride = {
-          modDirVersion = "5.2.0";
-          version = "5.2.2019.10.20";
-          src = pkgs.fetchFromGitHub {
-            owner = "koverstreet";
-            repo = "bcachefs";
-            rev = "82ea7be49f88ffd6811eb38c8f13ad423ba06817";
-            sha256 = "0ygpn3ak9016mv8542m3yqklnrjjrmfz7n2f1xa6crbgks5i852q";
+        linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
+          argsOverride = {
+            modDirVersion = "5.3.0";
+            version = "5.3.2020.01.04";
+            src = pkgs.fetchFromGitHub {
+              owner = "koverstreet";
+              repo = "bcachefs";
+              rev = "153ed7caf63c11ff1019f77cdd3d473583f254b2";
+              sha256 = "17lbjwicrhk5dz8jb4zcma4b02njl64mil8qxzgix5m3nh5yh109";
+            };
           };
-        }; };
+          kernelPatches = [
+            unstable.kernelPatches.bridge_stp_helper
+            unstable.kernelPatches.request_key_helper
+            (rec {
+              name = "dont-send-GEO_TX_POWER_LIMIT-command-to-FW-version-36";
+              patch = super.fetchpatch {
+                name = name + ".patch";
+                url = "https://github.com/torvalds/linux/commit/fddbfeece9c7882cc47754c7da460fe427e3e85b.patch";
+                sha256 = "15bp98gw5jr360p231dpnc3am9vw0c527apmxxzandmhn23d0mk1";
+              };
+            })
+          ];
+        };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "2019-10-16";
+          version = "2020-01-04";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "3c810611c1d1c9299d2200914cf279e92fa80d72";
-            sha256 = "0b7zq3c7vcc9qi6yanz5vin3z034jb1xjy5ci6jl2nq0nzh4d0il";
+            rev = "abbe66b6a5051027fd63b2a4cd4cb1d4b09410f6";
+            sha256 = "1alzf3hrrds7kfww67z1gwjpilq6z0ppy01avx8w2ci39im21j7z";
           };
         });
       }
     ) ];
-
+    
     boot.supportedFilesystems = [ "bcachefs" ];
 
     boot.kernelPatches = [
