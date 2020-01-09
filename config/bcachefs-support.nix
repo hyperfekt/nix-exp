@@ -17,12 +17,12 @@ in
         linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
           argsOverride = {
             modDirVersion = "5.3.0";
-            version = "5.3.2020.01.05";
+            version = "5.3.2020.01.09";
             src = pkgs.fetchFromGitHub {
               owner = "koverstreet";
               repo = "bcachefs";
-              rev = "d763e8ab17ff1f5bdd9c5474ac15eb8791d31582";
-              sha256 = "1dclmf2z2cw8pixah29df2xm5rcb4x7734gd57cz1ahlqvsqda57";
+              rev = "5a54fa0816521678e04b7b64eccaa2b94e83abd3";
+              sha256 = "1wjc7amf0987l061hxw80kb42llh5mq8n4p9pa14zr438479slsh";
             };
           };
           kernelPatches = [
