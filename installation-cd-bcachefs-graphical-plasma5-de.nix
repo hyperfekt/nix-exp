@@ -3,10 +3,9 @@
 {config, pkgs, ...}:
 {
     imports = [
-        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-graphical-kde.nix>
+        <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma5.nix>
         <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
         ./config/bcachefs-support.nix
-        ./config/git.nix
         ./config/layout_de.nix
         ./config/cloudflare-dns.nix
     ];
