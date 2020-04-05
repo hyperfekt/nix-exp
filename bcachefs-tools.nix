@@ -1,0 +1,1 @@
+with import <nixpkgs> {}; bcachefs-tools.overrideAttrs (old: { src = fetchFromGitHub { owner = "koverstreet"; repo = "bcachefs-tools"; rev = "96a6a5a58fda0456a332ceeda8148d75c4b5a214"; sha256 = "0a3vzvgl5k52bg358hjl3z7dlcgb2vd2r0ypyqa0j36sbgrkigzs"; }; })
