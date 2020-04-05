@@ -17,12 +17,12 @@ in
         linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
           argsOverride = {
             modDirVersion = "5.3.0";
-            version = "5.3.2020.03.30";
+            version = "5.3.2020.04.04";
             src = pkgs.fetchFromGitHub {
               owner = "koverstreet";
               repo = "bcachefs";
-              rev = "a897b0f199b2fb888f5885f115306759199094dd";
-              sha256 = "1inllda3frdrda2hwf0wd11wnc4iixwqnw2lz8ln0rjd8apq91fw";
+              rev = "a27d7265e75f6d65c2b972ce4ac27abfc153c230";
+              sha256 = "0wnjl4xs7073d5ipcsplv5qpcxb7zpfqd5gqvh3mhqc5j3qn816x";
             };
           };
           kernelPatches = [
@@ -39,12 +39,12 @@ in
           ];
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "2020-03-30";
+          version = "2020-04-04";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "c452666fb3dbda3edb5a442a187d3313d600cccc";
-            sha256 = "1mis2div9snzmk43np6ai90wrcjagng4cs41szxl1aalrwb5ydn5";
+            rev = "5d6e237b728cfb7c3bf2cb1a613e64bdecbd740d";
+            sha256 = "1syym9k3njb0bk2mg6832cbf6r42z6y8b6hjv7dg4gmv2h7v7l7g";
           };
         });
       }
