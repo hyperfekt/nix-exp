@@ -1,10 +1,10 @@
 { pkgs ? import <nixpkgs> {}}:
 pkgs.restic.overrideAttrs (old: {
   src = pkgs.fetchFromGitHub {
-    owner = "ifedorenko";
+    owner = "restic";
     repo = "restic";
-    rev = "5db73a6c006b58976e648a95fc8c058a78020feb";
-    sha256 = "0ygrq8qql0k06hmqsfa6krz43ckh2an90388pxczhwi8fwx5nzxn";
+    rev = "616f9499ae05fdb90b21109c36515dd06dd1d252";
+    sha256 = "07w97k2df27ghknma94pk92i7np1rzj71ssg601sy0nimgdpdwsv";
   };
-  version = "pr-2195";
+  version = "0.9.6-98-g616f9499";
 })
