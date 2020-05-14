@@ -16,36 +16,37 @@ in
       self: super: {
         linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
           argsOverride = {
-            modDirVersion = "5.3.0";
-            version = "5.3.2020.04.04";
+            modDirVersion = "5.6.0";
+            version = "5.6.2020.05.13";
             src = pkgs.fetchFromGitHub {
               owner = "koverstreet";
               repo = "bcachefs";
-              rev = "a27d7265e75f6d65c2b972ce4ac27abfc153c230";
-              sha256 = "0wnjl4xs7073d5ipcsplv5qpcxb7zpfqd5gqvh3mhqc5j3qn816x";
+              rev = "91fedfccb2e4d3941fe5ebe63930b52b9e800283";
+              sha256 = "1f5mrg64pf4szmgl1f52m2w31irncjqw7cmm86dmi632mr2za1zn";
             };
           };
           kernelPatches = [
             unstable.kernelPatches.bridge_stp_helper
             unstable.kernelPatches.request_key_helper
             (rec {
-              name = "dont-send-GEO_TX_POWER_LIMIT-command-to-FW-version-36";
+              name = "mac8021_fix-authentication-with-iwlwifi-mvm";
               patch = super.fetchpatch {
                 name = name + ".patch";
-                url = "https://github.com/torvalds/linux/commit/fddbfeece9c7882cc47754c7da460fe427e3e85b.patch";
-                sha256 = "15bp98gw5jr360p231dpnc3am9vw0c527apmxxzandmhn23d0mk1";
+                url = "https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/patch/?id=be8c827f50a0bcd56361b31ada11dc0a3c2fd240";
+                sha256 = "1driy0y38lln7s07ngnn17x717nhhqgbbj3rnljvylifvx053rj7";
               };
             })
           ];
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "2020-04-04";
+          version = "2020-05-09";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "5d6e237b728cfb7c3bf2cb1a613e64bdecbd740d";
-            sha256 = "1syym9k3njb0bk2mg6832cbf6r42z6y8b6hjv7dg4gmv2h7v7l7g";
+            rev = "024a01bf077a6f887b82fb74b7bd252a350dfa30";
+            sha256 = "1x40nivvf4dd14rnsi3386c84zzm5bqv8nsl2jklxy8ajgr3mgnm";
           };
+          buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev ];
         });
       }
     ) ];
