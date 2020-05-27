@@ -17,12 +17,12 @@ in
         linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
           argsOverride = {
             modDirVersion = "5.6.0";
-            version = "5.6.2020.05.13";
+            version = "5.6.2020.05.24";
             src = pkgs.fetchFromGitHub {
               owner = "koverstreet";
               repo = "bcachefs";
-              rev = "91fedfccb2e4d3941fe5ebe63930b52b9e800283";
-              sha256 = "1f5mrg64pf4szmgl1f52m2w31irncjqw7cmm86dmi632mr2za1zn";
+              rev = "2d63be71cfef677d615783e71c24d5939496b254";
+              sha256 = "0m3i5q6cww7ffsbfss29np0968ik5ilmmlk7jy3sh63iifmz9rdw";
             };
           };
           kernelPatches = [
@@ -39,12 +39,12 @@ in
           ];
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "2020-05-09";
+          version = "2020-05-25";
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "024a01bf077a6f887b82fb74b7bd252a350dfa30";
-            sha256 = "1x40nivvf4dd14rnsi3386c84zzm5bqv8nsl2jklxy8ajgr3mgnm";
+            rev = "90d54b388666b258c97be6a4e632824d136356c4";
+            sha256 = "1lnd06z7b8qy5ys4xiy2ggvnwgnwfz0c6s45llajc56f48f6l57q";
           };
           buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev ];
         });
