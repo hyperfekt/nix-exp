@@ -1,6 +1,19 @@
 { pkgs, lib, config, ...}:
 let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
+  kernel = {
+    date = "2020-06-18";
+    commit = "700b6bfc1817d73fcb80c52d627ed2ec19db148a";
+    diffhash = "0vrqzzbiqa2lqf7p4xgylqlb9r5iykgmd6vzasd4xaz0pm56d9r8";
+    version = "5.7";
+    base = "3d77e6a8804abcc0504c904bd6e5cdf3a5cf8162";
+  };
+  tools = {
+    date = "2020-06-15";
+    commit = "f8f84d93888483ee8fbac6bdea96d474a89c93e7";
+    hash = "1b4npjfhc5g16smv60g17dg0v9crp58ymclyh3xlwnswpdssg8g3";
+  };
+  upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
 {
   disabledModules = [ "tasks/filesystems/zfs.nix" ];
@@ -14,43 +27,33 @@ in
   config = {
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = unstable.linux_testing_bcachefs.override {
-          argsOverride = {
-            modDirVersion = "5.6.0";
-            version = "5.6.2020.05.24";
-            src = pkgs.fetchFromGitHub {
-              owner = "koverstreet";
-              repo = "bcachefs";
-              rev = "2d63be71cfef677d615783e71c24d5939496b254";
-              sha256 = "0m3i5q6cww7ffsbfss29np0968ik5ilmmlk7jy3sh63iifmz9rdw";
+        linux_testing_bcachefs = unstable."${upstreamkernel}".override {
+          version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
+          kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
+            name = "bcachefs-${kernel.date}";
+            patch = super.fetchurl {
+              name = "bcachefs-${kernel.commit}.diff";
+              url = "https://github.com/koverstreet/bcachefs/compare/${kernel.base}...${kernel.commit}.diff";
+              sha256 = kernel.diffhash;
             };
-          };
-          kernelPatches = [
-            unstable.kernelPatches.bridge_stp_helper
-            unstable.kernelPatches.request_key_helper
-            (rec {
-              name = "mac8021_fix-authentication-with-iwlwifi-mvm";
-              patch = super.fetchpatch {
-                name = name + ".patch";
-                url = "https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/patch/?id=be8c827f50a0bcd56361b31ada11dc0a3c2fd240";
-                sha256 = "1driy0y38lln7s07ngnn17x717nhhqgbbj3rnljvylifvx053rj7";
-              };
-            })
-          ];
+          })];
+          dontStrip = true;
+          extraConfig = "BCACHEFS_FS m";
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "2020-05-25";
+          version = tools.date;
           src = pkgs.fetchFromGitHub {
             owner = "koverstreet";
             repo = "bcachefs-tools";
-            rev = "90d54b388666b258c97be6a4e632824d136356c4";
-            sha256 = "1lnd06z7b8qy5ys4xiy2ggvnwgnwfz0c6s45llajc56f48f6l57q";
+            rev = tools.commit;
+            sha256 = tools.hash;
           };
+          doCheck = false;
           buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev ];
         });
       }
     ) ];
-    
+
     boot.supportedFilesystems = [ "bcachefs" ];
 
     boot.kernelPatches = [
@@ -71,3 +74,4 @@ in
     ];
   };
 }
+
