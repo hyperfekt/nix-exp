@@ -8,5 +8,6 @@
         ./config/bcachefs-support.nix
         ./config/layout_de.nix
         ./config/cloudflare-dns.nix
+	./config/git.nix
     ];
 }
