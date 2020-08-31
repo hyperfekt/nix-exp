@@ -2,16 +2,16 @@
 let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   kernel = {
-    date = "2020-08-12";
-    commit = "86fa1258a3ef59adccdd1534e55ef773b82c4cb7";
-    diffhash = "06qnpjh3wnnw3g2wycgajl7kfkb23r6pyzs5gvwcaq2wcv0242qi";
-    version = "5.7";
-    base = "3d77e6a8804abcc0504c904bd6e5cdf3a5cf8162";
+    date = "2020-08-25";
+    commit = "7e04f345cc3a1b48a1885394e210068b7bf5a0c0";
+    diffhash = "0b5w5gk86f02wxdapjdzg81cndxh8rvqqa5jh01p1x3alvbdv3nz";
+    version = "5.8";
+    base = "bcf876870b95592b52519ed4aafcf9d95999bc9c";
   };
   tools = {
-    date = "2020-07-25";
-    commit = "21ade396535e51503511f42ea06d58e25c0646c5";
-    hash = "0f2rj2lmxi16gr7lx2jajvs4zkycn88rx5lgf5fg67lmwbf6byv7";
+    date = "2020-08-25";
+    commit = "487ddeb03c574e902c5b749b4307e87e2150976a";
+    hash = "1pcid7apxmbl9dyvxcqby3k489wi69k8pl596ddzmkw5gmhgvgid";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
@@ -49,7 +49,7 @@ in
             sha256 = tools.hash;
           };
           doCheck = false;
-          buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev ];
+          buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev self.valgrind ];
         });
       }
     ) ];
