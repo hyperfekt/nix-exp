@@ -2,9 +2,9 @@
 let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   kernel = {
-    date = "2020-08-25";
-    commit = "fb2821e72648f35d3cff61ac26041d634fd1dacf";
-    diffhash = "0d00cwzbcms1bgds416w7sjz7gzjmhps2vf1s5bmsh5439xr8q2g";
+    date = "2020-10-14";
+    commit = "1252605174083ff7cd912f5ee21719a7feb36e4c";
+    diffhash = "1fbdry60v1c8pdp9xwrrnmgjl9w0chwp125qxczq2jnx51f5zjx9";
     version = "5.8";
     base = "bcf876870b95592b52519ed4aafcf9d95999bc9c";
   };
