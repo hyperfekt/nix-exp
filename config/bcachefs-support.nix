@@ -2,16 +2,16 @@
 let
   unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   kernel = {
-    date = "2020-10-14";
-    commit = "1252605174083ff7cd912f5ee21719a7feb36e4c";
-    diffhash = "1fbdry60v1c8pdp9xwrrnmgjl9w0chwp125qxczq2jnx51f5zjx9";
-    version = "5.8";
-    base = "bcf876870b95592b52519ed4aafcf9d95999bc9c";
+    date = "2020-12-10";
+    commit = "a8bee7297ef7dd37ab984222f9f875406e207f22";
+    diffhash = "0fbdry60v1c8pdp9xwrrnmgjl9w0chwp125qxczq2jnx51f5zjx9";
+    version = "5.10-rc7";
+    base = "0477e92881850d44910a7e94fc2c46f96faa131f";
   };
   tools = {
-    date = "2020-08-25";
-    commit = "487ddeb03c574e902c5b749b4307e87e2150976a";
-    hash = "1pcid7apxmbl9dyvxcqby3k489wi69k8pl596ddzmkw5gmhgvgid";
+    date = "2020-12-04";
+    commit = "db931a4571817d7d61be6bce306f1d42f7cd3398";
+    hash = "1zl8lda6ni6rhsmsng6smrcjihy2irjf03h1m7nvkqmkhq44j80s";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
@@ -27,7 +27,18 @@ in
   config = {
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = unstable."${upstreamkernel}".override {
+        linux_testing_bcachefs = unstable.linux_testing.override {
+	  argsOverride = {
+            version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
+            src = unstable.fetchFromGitHub {
+              owner = "koverstreet";
+              repo = "bcachefs";
+	      rev = kernel.commit;
+              sha256 = "0v5fs24g9zj3k6400lspgbiha5adv9l0pkiv3awpz8cpqxv9l2ly";
+            };
+          };
+          modDirVersionArg = builtins.replaceStrings ["-"] [".0-"] kernel.version;
+        /*linux_testing_bcachefs = unstable."${upstreamkernel}".override {
           version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
           kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
             name = "bcachefs-${kernel.date}";
@@ -36,7 +47,7 @@ in
               url = "https://github.com/koverstreet/bcachefs/compare/${kernel.base}...${kernel.commit}.diff";
               sha256 = kernel.diffhash;
             };
-          })];
+          })];*/
           dontStrip = true;
           extraConfig = "BCACHEFS_FS m";
         };
@@ -48,6 +59,7 @@ in
             rev = tools.commit;
             sha256 = tools.hash;
           };
+          meta.broken = false;
           doCheck = false;
           buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev self.valgrind ];
         });
