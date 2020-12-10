@@ -1,6 +1,6 @@
 { pkgs, lib, config, ...}:
 let
-  unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
+  unstable = import (builtins.fetchTarball "https://github.com/luc65r/nixpkgs/archive/staging.tar.gz") { config = config.nixpkgs.config; };
   kernel = {
     date = "2020-12-10";
     commit = "a8bee7297ef7dd37ab984222f9f875406e207f22";
@@ -17,7 +17,9 @@ let
 in
 {
   disabledModules = [ "tasks/filesystems/zfs.nix" ];
-
+  
+  imports = [ ./debugkernel.nix ];
+  
   options.security.pam.services = with lib; mkOption {
     type = types.loaOf (types.submodule {
       config.text = mkDefault (mkAfter "session required pam_keyinit.so force revoke");
