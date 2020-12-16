@@ -2,8 +2,8 @@
 let
   unstable = import (builtins.fetchTarball "https://github.com/luc65r/nixpkgs/archive/staging.tar.gz") { config = config.nixpkgs.config; };
   kernel = {
-    date = "2020-12-13";
-    commit = "b7ddbb0e20d2add011d8f5a035b04ca3ac8b34fa";
+    date = "2020-12-16";
+    commit = "7f7be490e6a99f2131f0ee044411f51dcbfbcd0c";
     diffhash = "";
     version = "5.10-rc7";
     base = "";
@@ -36,7 +36,7 @@ in
               owner = "koverstreet";
               repo = "bcachefs";
 	      rev = kernel.commit;
-              sha256 = "091v0rlbhqqckh1l4v3wbijxrdfw0p9904q6838xrvagn4sg600l";
+              sha256 = "15dy181p1w7wpwr9jj8l82s3cfsv8krc7284dw7n4m8my21n3gsg";
             };
           };
           modDirVersionArg = builtins.replaceStrings ["-"] [".0-"] kernel.version;
