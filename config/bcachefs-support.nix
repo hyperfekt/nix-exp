@@ -19,7 +19,7 @@ in
   disabledModules = [ "tasks/filesystems/zfs.nix" ];
   
   imports = [ ./debugkernel.nix ];
-  
+
   options.security.pam.services = with lib; mkOption {
     type = types.loaOf (types.submodule {
       config.text = mkDefault (mkAfter "session required pam_keyinit.so force revoke");
@@ -27,6 +27,8 @@ in
   };
 
   config = {
+    nix.useSandbox = false;
+
     nixpkgs.overlays = [ (
       self: super: {
         linux_testing_bcachefs = unstable.linux_testing.override {
