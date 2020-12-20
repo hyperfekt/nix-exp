@@ -2,16 +2,16 @@
 let
   unstable = import (builtins.fetchTarball "https://github.com/luc65r/nixpkgs/archive/staging.tar.gz") { config = config.nixpkgs.config; };
   kernel = {
-    date = "2020-12-16";
-    commit = "7f7be490e6a99f2131f0ee044411f51dcbfbcd0c";
+    date = "2020-12-20";
+    commit = "0b96cd54d25c8676c400ec3ac96d4c0035d34c56";
     diffhash = "";
-    version = "5.10-rc7";
+    version = "5.10.0";
     base = "";
   };
   tools = {
-    date = "2020-12-04";
-    commit = "db931a4571817d7d61be6bce306f1d42f7cd3398";
-    hash = "1zl8lda6ni6rhsmsng6smrcjihy2irjf03h1m7nvkqmkhq44j80s";
+    date = "2020-12-20";
+    commit = "80846e9c28e76774daf7d2d46115d73f108b98db";
+    hash = "0dakvlmnn85b8qfzygr7hg2xynf6vk58616vsm7brjy4jr0l4vmc";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
@@ -38,7 +38,7 @@ in
               owner = "koverstreet";
               repo = "bcachefs";
 	      rev = kernel.commit;
-              sha256 = "15dy181p1w7wpwr9jj8l82s3cfsv8krc7284dw7n4m8my21n3gsg";
+              sha256 = "1fmddr393h4wrv0dq44wqc9dpnb8ikxs1avxkgmhb1mkhvadmi42";
             };
           };
           modDirVersionArg = builtins.replaceStrings ["-"] [".0-"] kernel.version;
