@@ -1,12 +1,12 @@
 { pkgs, lib, config, ...}:
 let
-  unstable = import (builtins.fetchTarball "https://github.com/nixos/nixpkgs/archive/staging.tar.gz") { config = config.nixpkgs.config; };
+  unstable = import <nixos-unstable> {};
   kernel = {
-    date = "2021-01-19";
-    commit = "8bb9b3ac6e4e2d1b5017645dbe87a94375a97003";
-    diffhash = "";
-    version = "5.10.0";
-    base = "";
+    date = "2021-01-22";
+    commit = "8c265ff59bb68e175c4f899a5f1eb4c636c9c5f6";
+    diffhash = "12f95mxb6b8z0x7myfl9n02f66nkpaala9fgbflhyidjj25i2mpr";
+    version = "5.10.9";
+    base = "2c85ebc57b3e1817b6ce1a6b703928e113a90442";
   };
   tools = {
     date = "2021-01-15";
@@ -31,26 +31,16 @@ in
 
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = unstable.linux_testing.override {
-          argsOverride = {
-            version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
-            src = unstable.fetchFromGitHub {
-              owner = "koverstreet";
-              repo = "bcachefs";
-              rev = kernel.commit;
-              sha256 = "0ynhs2g093z4hmnh33drriymfq43sdibyy7mf9s89qd7p36sf7nr";
-            };
-          };
-        /*linux_testing_bcachefs = unstable."${upstreamkernel}".override {
-          version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
-          /*kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
+        linux_testing_bcachefs = unstable."${upstreamkernel}".override {
+          argsOverride.version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
+          kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
             name = "bcachefs-${kernel.date}";
             patch = super.fetchurl {
               name = "bcachefs-${kernel.commit}.diff";
               url = "https://github.com/koverstreet/bcachefs/compare/${kernel.base}...${kernel.commit}.diff";
               sha256 = kernel.diffhash;
             };
-          })];*/
+          })];
           modDirVersionArg = builtins.replaceStrings ["-"] [".0-"] kernel.version;
           dontStrip = true;
           extraConfig = "BCACHEFS_FS m";
