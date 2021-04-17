@@ -2,16 +2,16 @@
 let
   unstable = import <nixos-unstable> {};
   kernel = {
-    date = "2021-04-05";
-    commit = "6a3927a96b2f362deccc7ee36e20e03f193a9e00";
-    diffhash = "0hdn3arlcm4qybq91f4xvf52r0sbjcs42hg1gkcz1s3mpn9y44xp";
+    date = "2021-04-16";
+    commit = "9a33130654200bb1815376388fa5ecc57899aa05";
+    diffhash = "1qfmrmkmas7h243zjrq1nja0g44pksjg3fmjl242k2fv1lddhqkk";
     version = "5.10";
     base = "2c85ebc57b3e1817b6ce1a6b703928e113a90442";
   };
   tools = {
-    date = "2021-04-05";
-    commit = "ce906d661e63d4318b9f26ec145f2ff5fddf5162";
-    hash = "1fkfqrk3q6shjr8jnpf3myd79xdpc8hbs0grwdmzb3dhw65k9isi";
+    date = "2021-04-13";
+    commit = "967c8704989f6194dc40ea884b5d0f713d4fb74c";
+    hash = "1yfzvndrxqhj8nyjcbhnydg7xf3apyfgnmv3f7p78wxlfraafh0w";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
@@ -36,7 +36,7 @@ in
             name = "bcachefs-${kernel.date}";
             patch = super.fetchurl {
               name = "bcachefs-${kernel.commit}.diff";
-              url = "https://github.com/koverstreet/bcachefs/compare/${kernel.base}...${kernel.commit}.diff";
+              url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${kernel.commit}&id2=${kernel.base}";
               sha256 = kernel.diffhash;
             };
           })];
@@ -45,9 +45,8 @@ in
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
           version = tools.date;
-          src = pkgs.fetchFromGitHub {
-            owner = "koverstreet";
-            repo = "bcachefs-tools";
+          src = pkgs.fetchgit {
+            url = "https://evilpiepirate.org/git/bcachefs-tools.git";
             rev = tools.commit;
             sha256 = tools.hash;
           };
