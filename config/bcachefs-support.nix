@@ -2,16 +2,16 @@
 let
   unstable = import <nixos-unstable> {};
   kernel = {
-    date = "2021-01-26";
-    commit = "ffc900d5936ae538e34d18a6ce739d0a5a9178cf";
-    diffhash = "0zn81cxn5iyrq3p0cwf6mlb1ymzjg6jdrcsf7933pra44sqr6m17";
-    version = "5.10.10";
+    date = "2021-04-05";
+    commit = "6a3927a96b2f362deccc7ee36e20e03f193a9e00";
+    diffhash = "0hdn3arlcm4qybq91f4xvf52r0sbjcs42hg1gkcz1s3mpn9y44xp";
+    version = "5.10";
     base = "2c85ebc57b3e1817b6ce1a6b703928e113a90442";
   };
   tools = {
-    date = "2021-01-27";
-    commit = "19f921604d3bacf7a8b243d0548b408bd93e8827";
-    hash = "0ywjxqr5apfvgwvnbaigx05yfvy5sn8wlsb79z05caz8y79bg179";
+    date = "2021-04-05";
+    commit = "ce906d661e63d4318b9f26ec145f2ff5fddf5162";
+    hash = "1fkfqrk3q6shjr8jnpf3myd79xdpc8hbs0grwdmzb3dhw65k9isi";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
@@ -32,7 +32,6 @@ in
     nixpkgs.overlays = [ (
       self: super: {
         linux_testing_bcachefs = unstable."${upstreamkernel}".override {
-          argsOverride.version = "${kernel.version}.${lib.replaceStrings ["-"] ["."] kernel.date}";
           kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
             name = "bcachefs-${kernel.date}";
             patch = super.fetchurl {
@@ -41,7 +40,6 @@ in
               sha256 = kernel.diffhash;
             };
           })];
-          modDirVersionArg = builtins.replaceStrings ["-"] [".0-"] kernel.version;
           dontStrip = true;
           extraConfig = "BCACHEFS_FS m";
         };
@@ -55,6 +53,7 @@ in
           };
           meta.broken = false;
           doCheck = false;
+          dontStrip = true;
           buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev self.valgrind ];
         });
       }
