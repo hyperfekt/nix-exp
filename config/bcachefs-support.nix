@@ -2,16 +2,16 @@
 let
   unstable = import <nixos-unstable> {};
   kernel = {
-    date = "2021-04-16";
-    commit = "9a33130654200bb1815376388fa5ecc57899aa05";
-    diffhash = "1qfmrmkmas7h243zjrq1nja0g44pksjg3fmjl242k2fv1lddhqkk";
+    date = "2021-04-21";
+    commit = "e455e478dd8ce2731e882b18aa921a4e7b179604";
+    diffhash = "1mfb11i7blqcvp9sbk5ahs95xh4n6l24hdfxyjd4nbrn6713q9fs";
     version = "5.10";
     base = "2c85ebc57b3e1817b6ce1a6b703928e113a90442";
   };
   tools = {
-    date = "2021-04-13";
-    commit = "967c8704989f6194dc40ea884b5d0f713d4fb74c";
-    hash = "1yfzvndrxqhj8nyjcbhnydg7xf3apyfgnmv3f7p78wxlfraafh0w";
+    date = "2021-04-19";
+    commit = "ceac31bcb6992cb8b7770d2a0e91b055e5020431";
+    hash = "1sa43qz1i58gbhk23fhwhq3glz7cgwx5rrvgv9vzjzls6h4nxv1n";
   };
   upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
 in
