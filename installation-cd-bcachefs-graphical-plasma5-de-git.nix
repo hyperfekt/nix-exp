@@ -12,4 +12,7 @@
         ./config/pstore.nix
         ./config/largetmpfs.nix
     ];
+
+    isoImage.squashfsCompression = "zstd -Xcompression-level 3";
+
 }
