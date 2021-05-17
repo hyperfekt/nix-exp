@@ -8,6 +8,16 @@
       DYNAMIC_DEBUG y
     '';
   } {
+    name = "sanitize";
+    patch = null;
+    extraConfig = ''
+      KASAN y
+      KASAN_INLINE y
+      STACKTRACE y
+      UBSAN y
+      UBSAN_SANITIZE_ALL y
+    '';
+  } {
     name = "detect_lockups";
     patch = null;
     extraConfig = ''
