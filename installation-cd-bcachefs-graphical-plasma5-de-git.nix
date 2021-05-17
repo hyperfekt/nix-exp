@@ -9,7 +9,6 @@
         ./config/layout_de.nix
         ./config/cloudflare-dns.nix
         ./config/git.nix
-        ./config/pstore.nix
         ./config/largetmpfs.nix
     ];
 
