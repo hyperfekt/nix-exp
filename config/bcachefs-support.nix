@@ -1,6 +1,6 @@
 { pkgs, lib, config, ...}:
 let
-  unstable = import <nixos-unstable> {};
+  unstable = import <nixos-unstable> { overlays = config.nixpkgs.overlays; };
   kernel = {
     date = "2021-05-17";
     commit = "0cd3e1d27a6252b6c0cc32f237c2b2414540e2e8";

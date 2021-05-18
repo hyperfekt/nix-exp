@@ -10,6 +10,7 @@
         ./config/cloudflare-dns.nix
         ./config/git.nix
         ./config/largetmpfs.nix
+        ./config/fastbuildkernel.nix
     ];
 
     isoImage.squashfsCompression = "zstd -Xcompression-level 3";
