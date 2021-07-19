@@ -1,20 +1,4 @@
 { pkgs, lib, config, ...}:
-let
-  unstable = import <nixos-unstable> { overlays = config.nixpkgs.overlays; };
-  kernel = {
-    date = "2021-05-17";
-    commit = "0cd3e1d27a6252b6c0cc32f237c2b2414540e2e8";
-    diffhash = "1wgrajiwzfhqriadkwql1g0prqr9wjrcysnjm2rd49fskdg621wl";
-    version = "5.11";
-    base = "f40ddce88593482919761f74910f42f4b84c004b";
-  };
-  tools = {
-    date = "2021-05-17";
-    commit = "2e2d5a3f7ed4f6d4e2a45011a82386ba82cd3976";
-    hash = "0gqhcnqi58i1snydzi9na8s85nz0ppvjmp0nmfkd82wpwkxgk4d5";
-  };
-  upstreamkernel = "linux_${lib.versions.major kernel.version}_${lib.versions.minor kernel.version}";
-in
 {
   disabledModules = [ "tasks/filesystems/zfs.nix" ];
 
@@ -27,33 +11,26 @@ in
   };
 
   config = {
-    nix.useSandbox = false;
-
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = unstable."${upstreamkernel}".override {
-          kernelPatches = unstable."${upstreamkernel}".kernelPatches ++ [(rec {
-            name = "bcachefs-${kernel.date}";
-            patch = super.fetchurl {
-              name = "bcachefs-${kernel.commit}.diff";
-              url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${kernel.commit}&id2=${kernel.base}";
-              sha256 = kernel.diffhash;
-            };
-          })];
-          dontStrip = true;
-          extraConfig = "BCACHEFS_FS m";
+        linux_testing_bcachefs = super.linux_testing_bcachefs.override {
+          date = "2021-07-16";
+          commit = "fafff176118396dfcc6fec8c304903dba3a9dcca";
+          diffHash = "0ffqpmwl3jj6gczv366h79yj03345lfkp7c25h3gvwxvxxs7pxjk";
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = tools.date;
+          version = "unstable-2021-07-16";
           src = pkgs.fetchgit {
             url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-            rev = tools.commit;
-            sha256 = tools.hash;
+            rev = "646aabf327f423ab7e5d66b7982c6e9942a8897c";
+            sha256 = "1571l8m5mx7b4z7jdfhhbhavq8bicxjd89an7825srrrskvc5fyq";
           };
-          meta.broken = false;
-          doCheck = false;
+          postPatch = ''
+            patchShebangs doc/macro2rst.py
+          '';
+          installFlags = oldAttrs.installFlags ++ [ "INITRAMFS_DIR=${placeholder "out"}/share/initramfs-tools" ];
           dontStrip = true;
-          buildInputs = oldAttrs.buildInputs ++ [ self.libudev.dev self.valgrind ];
+          nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.python3 pkgs.python3Packages.pygments ];
         });
       }
     ) ];
@@ -78,4 +55,3 @@ in
     ];
   };
 }
-
