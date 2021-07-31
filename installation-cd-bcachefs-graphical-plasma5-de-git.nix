@@ -11,6 +11,7 @@
         ./config/git.nix
         ./config/largetmpfs.nix
         ./config/fastbuildkernel.nix
+        ./config/udf-fix.nix
     ];
 
     isoImage.squashfsCompression = "zstd -Xcompression-level 3";
