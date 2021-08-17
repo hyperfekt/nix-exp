@@ -14,16 +14,16 @@
     nixpkgs.overlays = [ (
       self: super: {
         linux_testing_bcachefs = super.linux_testing_bcachefs.override {
-          date = "2021-07-30";
-          commit = "4cbe560ebff23c89a3ed523b810ed045fb0409ed";
-          diffHash = "19pl3h6mbcgpvxrg02gf73wymydpxg6395x5dhzc0qmrp22hrc6j";
+          date = "2021-08-17";
+          commit = "60115eb5cf5c662f3c9d4a0048ac942d35ce7075";
+          diffHash = "1xd9cngw4sdi34g4mm8v8044d5gz5bx8ja3s5g6brkcarhmiwa49";
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "unstable-2021-07-28";
+          version = "unstable-2021-08-05";
           src = pkgs.fetchgit {
             url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-            rev = "ac82bc1ea5473d1c0945b13a71c5d1d9ef692e23";
-            sha256 = "032x5lhznkgkc1411hfps6k63kj2cv6savpj1pyymmf5gx9n3lla";
+            rev = "6c42566c6204bb5dcd6af3b97257e548b9d2db67";
+            sha256 = "0xagz0k3li10ydma55mnld0nb2pyfx90vsdvgjflgnx6jw3cq4dq";
           };
           postPatch = ''
             patchShebangs doc/macro2rst.py
