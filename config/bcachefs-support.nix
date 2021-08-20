@@ -39,6 +39,13 @@
 
     boot.kernelPatches = [
       {
+        name = "bcachefs-inline";
+        patch = null;
+        extraConfig = ''
+          BCACHEFS_FS y
+        '';
+      }
+      {
         name = "bcachefs-acl";
         patch = null;
         extraConfig = ''

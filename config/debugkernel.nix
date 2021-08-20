@@ -1,4 +1,10 @@
+{ config, ... }:
 {
+  isoImage.storeContents = [
+    config.system.build.kernel.dev
+    config.system.build.kernel.drvPath
+  ];
+
   boot.kernelPatches = [ {
     name = "debug";
     patch = null;
