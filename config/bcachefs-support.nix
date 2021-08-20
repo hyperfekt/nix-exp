@@ -14,9 +14,9 @@
     nixpkgs.overlays = [ (
       self: super: {
         linux_testing_bcachefs = super.linux_testing_bcachefs.override {
-          date = "2021-08-17";
-          commit = "60115eb5cf5c662f3c9d4a0048ac942d35ce7075";
-          diffHash = "1xd9cngw4sdi34g4mm8v8044d5gz5bx8ja3s5g6brkcarhmiwa49";
+          date = "2021-08-19";
+          commit = "fd3fdd74af3d682b780eae5b087062f91780f8ed";
+          diffHash = "1znr1vyx6x31nn3f22xb7vn6xik60ccna2bqh2a9sh0khj28bp7p";
         };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
           version = "unstable-2021-08-05";
