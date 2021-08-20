@@ -1,2 +1,2 @@
 #! /usr/bin/env bash
-NIXOS_CONFIG=/mnt/cfg/bismuth.nix nixos-install -v -I nixpkgs=/mnt/cfg/patched --max-jobs 8 --no-channel-copy --keep-going
+NIXOS_CONFIG=/mnt/cfg/bismuth.nix nixos-install -I nixpkgs=/mnt/cfg/patched --max-jobs 8 --cores 4 --show-trace "$@"
