@@ -13,17 +13,17 @@
   config = {
     nixpkgs.overlays = [ (
       self: super: {
-        linux_testing_bcachefs = super.linux_testing_bcachefs.override {
-          date = "2021-08-23";
-          commit = "aed9db86aadd385b0d2591e50fde29005b41334e";
-          diffHash = "0rji7k808xk7jc4yw94rjghin1ycrshri4fmiiy5y0d32fq4bb1s";
-        };
+        linuxKernel = lib.recursiveUpdate super.linuxKernel { kernels.linux_testing_bcachefs = super.linuxKernel.kernels.linux_testing_bcachefs.override {
+          date = "2021-09-21";
+          commit = "bd6ed9fb42c0aa36d1f4a21eeab45fe12e1fb792";
+          diffHash = "0wml259g1z990kg3bdl1rpmlvcazdpv1fc8vm3kjxpncdp7637wp";
+        }; };
         bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: rec {
-          version = "unstable-2021-08-05";
+          version = "unstable-2021-09-09";
           src = pkgs.fetchgit {
             url = "https://evilpiepirate.org/git/bcachefs-tools.git";
-            rev = "6c42566c6204bb5dcd6af3b97257e548b9d2db67";
-            sha256 = "0xagz0k3li10ydma55mnld0nb2pyfx90vsdvgjflgnx6jw3cq4dq";
+            rev = "2b8c1bb0910534e8687ea3e5abf6d8bbba758247";
+            sha256 = "11k7axjgv1k36012qzsks6ll508sbmkyx52wa3ddgc6jsa0vn762";
           };
           postPatch = ''
             patchShebangs doc/macro2rst.py
