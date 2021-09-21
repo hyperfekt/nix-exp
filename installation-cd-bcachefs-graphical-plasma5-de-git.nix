@@ -13,6 +13,8 @@
         ./config/fastbuildkernel.nix
     ];
 
+    services.thermald.enable = true;
+
     isoImage.squashfsCompression = "zstd -Xcompression-level 3";
 
 }
